@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+	<title>Workout Logger</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<style>
+		span.save, span.next, span.prev { cursor: pointer; }
+		#menu li { cursor: pointer; }
+		#nav { display: none; }
+		#slider > ul > li { display: none; }
+		#slider > ul > li:firstChild { display: block; }
+		#resume { display: none; }
+		.alert { display: none; }
+		html,body { background: #dedede; /*height: 100%;*/ }
+		.container-narrow { width: 440px; padding: 20px; margin: 0 auto; background: #fff; min-height: 100%; }
+		#nav-bottom { display: none; }
+	</style>
+</head>
+<body>
+	<div class="container-narrow">
+		<div id="menu">
+			<h4>Choose a workout:</h4>
+		</div>
+		<div id="nav">
+			<div class="progress">
+				<div class="bar"></div>
+			</div>
+			<span class="prev btn">Prev</span>
+			<span class="next btn pull-right">Next</span>
+			
+		</div>
+		<div id="resume" class="alert alert-block fade in">
+			<p>It looks like you didn't finish this workout last time. Do you want to continue where you left off or start over?</p>
+			<p><span class="btn resume-yes">Continue</span> <span class="btn resume-no">Start over</span></p>
+		</div>
+		<div id="slider">
+			
+		</div>
+		<div id="nav-bottom">
+			<span id="menu-btn" class="btn"><i class="icon-align-justify"></i> Workout Menu</span>
+		</div>
+	</div>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/swipe.js"></script>
+	<script src="js/p90x.js"></script>
+
+	<script>
+	var p90x = new Program(p90xTemplate, "p90x");
+
+	var i=0;
+	
+	var $workoutList = $('<ul></ul>'),
+		$temp;
+	
+	$.each(p90x.program.workouts, function(k, v) {
+		$temp = $('<li></li>').attr('data-workout', k).text(v.name).attr('data-progress', v.activeExercise);
+		$workoutList.append($temp);
+	});
+
+	$('#menu').append($workoutList);
+	$('#menu').on('click', 'li', function(e) {
+		e.preventDefault();
+
+		var workoutIdx = $(this).attr('data-workout'),
+			progress = $(this).attr('data-progress');
+
+		if (progress) {
+
+			$('#resume').on('click', '.resume-yes', function(e) {
+				$('#resume').alert('close');
+				p90x.loadWorkout('#slider', workoutIdx, progress);
+			});
+			
+			$('#resume').on('click', '.resume-no', function(e) {
+				$('#resume').alert('close');
+				p90x.loadWorkout('#slider', workoutIdx);
+			});
+
+			$('#resume').show().alert();
+		
+		} else {
+			p90x.loadWorkout('#slider', workoutIdx);
+		}
+	});
+
+	$('#nav').on('click', '.next', function(e) {
+		e.preventDefault();
+
+		p90x.swipe.next();
+	});
+
+	$('#nav').on('click', '.prev', function(e) {
+		e.preventDefault();
+
+		p90x.swipe.prev();
+	});
+
+	$('#menu-btn').click(function(e) {
+		e.preventDefault();
+
+
+	});
+
+	$('#slider').on('click', '.save', p90x.logger);
+	</script>
+
+</body>
+</html>
