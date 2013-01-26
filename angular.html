@@ -1,0 +1,54 @@
+<!doctype html>
+<html ng-app="workout">
+<head>
+	<title>Workout Logger</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<style>
+		span.save, span.next, span.prev { cursor: pointer; }
+		#menu li { cursor: pointer; }
+		#nav { display: none; }
+		#slider > ul > li { display: none; }
+		#slider > ul > li:firstChild { display: block; }
+		#resume { display: none; }
+		.alert { display: none; }
+		html,body { background: #dedede; /*height: 100%;*/ }
+		.container-narrow { width: 440px; padding: 20px; margin: 0 auto; background: #fff; min-height: 100%; }
+		#nav-bottom { display: none; }
+	</style>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular-resource.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="js/workout.js"></script>
+</head>
+<body>
+	<div class="container-narrow">
+		<div ng-view id="menu">
+		</div>
+		<div id="nav">
+			<div class="progress">
+				<div class="bar"></div>
+			</div>
+			<span class="prev btn">Prev</span>
+			<span class="next btn pull-right">Next</span>
+			
+		</div>
+		<div id="resume" class="alert alert-block fade in">
+			<p>It looks like you didn't finish this workout last time. Do you want to continue where you left off or start over?</p>
+			<p><span class="btn resume-yes">Continue</span> <span class="btn resume-no">Start over</span></p>
+		</div>
+		<div id="slider">
+			
+		</div>
+		<div id="nav-bottom">
+			<span id="menu-btn" class="btn"><i class="icon-align-justify"></i> Workout Menu</span>
+		</div>
+	</div>
+
+
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/swipe.js"></script>
+
+
+</body>
+</html>

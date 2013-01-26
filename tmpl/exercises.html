@@ -1,0 +1,7 @@
+<h4>{{workout}}</h4>
+
+<ul>
+	<li ng-repeat="exercise in exercises">
+		<a href="#/{{routeParams.programKey}}/{{routeParams.workoutId}}/{{$index}}">{{exercise.name}}</a>
+	</li>
+</ul>

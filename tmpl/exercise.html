@@ -1,0 +1,37 @@
+<h4>{{exercise.name}}</h4>
+
+<form class="form-horizontal">
+	<div class="control-group" ng-repeat="option in exercise.options">
+		<label class="control-label" for="{{option}}">{{option}}</label>
+		<div class="controls">
+			<input type="text" class="input-medium" name="{{option}}" ng-model="exerciseData.data[option]" placeholder="{{option}}">
+		</div>
+	</div>
+	<div class="control-group">
+		<div class="controls">
+			<span class="save btn btn-primary" ng-click="save()">Save</span>
+			<span class="skip btn btn-link pull-right">Skip</span>
+		</div>
+	</div>
+</form>
+
+<div class="alert alert-success">Good Job!</div>
+
+<div ng-show="exercise.datalog.length">
+<strong>History:</strong>
+
+<table class="history table table-striped">
+	<thead>
+		<tr><th>#</th><th>Date</th><th>Log</th></tr>
+	</thead>
+	<tbody>
+		<tr ng-repat="log in exercise.datalog">
+			<td>{{$index}}</td>
+			<td>log.date</td>
+			<td>
+				<span ng-repeat="d in log.data">{{d}}</span><br/>
+			</td>
+		</tr>
+	</tbody>
+</table>
+</div>
